@@ -46,25 +46,25 @@ level3 = {
                    }
 }
 level1_tests = {
-        "Волшебное число": {'tests/test_1'},
+        "Волшебное число": 'test_1',
 
-        "Волшебный попугай": {'tests/test_2'},
+        "Волшебный попугай": 'test_2',
 
-        "Магическая сумма чисел": {'tests/test_3'}
+        "Магическая сумма чисел": 'test_3'
 }
 level2_tests = {
-        "Поиск маны": {'tests/test_5'},
+        "Поиск маны": 'tests/test_5',
 
-        "Сильнее среднего": {'tests/test_4'},
+        "Сильнее среднего": 'tests/test_4',
 
-        "Четное нечетное": {'tests/test_6'}
+        "Четное нечетное": 'tests/test_6'
 }
 level3_tests = {
-        "Множества": {'tests/test_7'},
+        "Множества": 'test_7',
 
-        "Словари": {'tests/test_8'},
+        "Словари": 'test_8',
 
-        "Списки": {'tests/test_9'}
+        "Списки": 'test_9'
 }
 
 
@@ -204,7 +204,7 @@ class Level1(QWidget, Ui_Form1):
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level1_tests[self.btn_name]}'])
+        self.process.start('python', [f'tests/{level1_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
@@ -277,7 +277,7 @@ class Level2(QWidget, Ui_Form2):
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level2_tests[self.btn_name]}'])
+        self.process.start('python', [f'tests/{level2_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
@@ -350,7 +350,7 @@ class Level3(QWidget, Ui_Form3):
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level3_tests[self.btn_name]}'])
+        self.process.start('python', [f'tests/{level3_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
