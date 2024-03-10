@@ -14,7 +14,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAbstractItemView
 
-ERRORS = ['ValueError', 'NameError', 'invalid syntax', 'Верно', 'Доработать']
 level1 = {
         "Волшебное число": {'text': '',
                             'verdict': ''},
@@ -45,6 +44,27 @@ level3 = {
         "Списки": {'text': '',
                    'verdict': ''
                    }
+}
+level1_tests = {
+        "Волшебное число": {'tests/test_1'},
+
+        "Волшебный попугай": {'tests/test_2'},
+
+        "Магическая сумма чисел": {'tests/test_3'}
+}
+level2_tests = {
+        "Поиск маны": {'tests/test_5'},
+
+        "Сильнее среднего": {'tests/test_4'},
+
+        "Четное нечетное": {'tests/test_6'}
+}
+level3_tests = {
+        "Множества": {'tests/test_7'},
+
+        "Словари": {'tests/test_8'},
+
+        "Списки": {'tests/test_9'}
 }
 
 
@@ -144,7 +164,6 @@ class Level1(QWidget, Ui_Form1):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-        self.verdict = None
 
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
@@ -185,11 +204,11 @@ class Level1(QWidget, Ui_Form1):
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', ['tests/test_1.py'])
+        self.process.start('python', [f'tests/{level1_tests[self.btn_name]}'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
-            self.verdict = 'Доработать'
+            self.verdict = 'Доработать' + self.verdict
 
         level1[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
@@ -218,7 +237,19 @@ class Level2(QWidget, Ui_Form2):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-        self.verdict = None
+
+        self.process = QtCore.QProcess(self)
+        self.process.readyReadStandardOutput.connect(self.stdoutReady)
+        self.process.readyReadStandardError.connect(self.stderrReady)
+        for filename in os.listdir('tmp_files'):
+            file_path = os.path.join('tmp_files', filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     def click_button(self):
         self.send.clicked.connect(self.send_decision)
@@ -236,16 +267,23 @@ class Level2(QWidget, Ui_Form2):
     def load_lvl(self, button):
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
-        self.error_label.setText(level2[self.btn_name]['verdict'])
-        self.textEdit.setText(level2[self.btn_name]['text'])
+        self.error_label.setText(level1[self.btn_name]['verdict'])
+        self.textEdit.setText(level1[self.btn_name]['text'])
 
     def save_to(self):
         self.text = self.textEdit.toPlainText()
-        level2[self.btn_name]['text'] = self.text
+        level1[self.btn_name]['text'] = self.text
+        with open(f'tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
+            decision.write(self.text)
 
     def send_decision(self):
-        self.verdict = random.choice(ERRORS)
-        level2[self.btn_name]['verdict'] = self.verdict
+        self.process.start('python', [f'tests/{level2_tests[self.btn_name]}'])
+        if 'OK' in self.verdict:
+            self.verdict = 'Зачтено'
+        else:
+            self.verdict = 'Доработать' + self.verdict
+
+        level1[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
 
     def keyPressEvent(self, event) -> None:
@@ -256,6 +294,14 @@ class Level2(QWidget, Ui_Form2):
         self.main = FirstPage()
         self.hide()
         self.main.show()
+
+    def stdoutReady(self):
+        out = self.process.readAllStandardOutput()
+        self.verdict = str(out, 'utf-8')
+
+    def stderrReady(self):
+        err = self.process.readAllStandardError()
+        self.verdict = str(err, 'utf-8')
 
 
 class Level3(QWidget, Ui_Form3):
@@ -264,7 +310,19 @@ class Level3(QWidget, Ui_Form3):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-        self.verdict = None
+
+        self.process = QtCore.QProcess(self)
+        self.process.readyReadStandardOutput.connect(self.stdoutReady)
+        self.process.readyReadStandardError.connect(self.stderrReady)
+        for filename in os.listdir('tmp_files'):
+            file_path = os.path.join('tmp_files', filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     def click_button(self):
         self.send.clicked.connect(self.send_decision)
@@ -282,16 +340,23 @@ class Level3(QWidget, Ui_Form3):
     def load_lvl(self, button):
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
-        self.error_label.setText(level3[self.btn_name]['verdict'])
-        self.textEdit.setText(level3[self.btn_name]['text'])
+        self.error_label.setText(level1[self.btn_name]['verdict'])
+        self.textEdit.setText(level1[self.btn_name]['text'])
 
     def save_to(self):
         self.text = self.textEdit.toPlainText()
-        level3[self.btn_name]['text'] = self.text
+        level1[self.btn_name]['text'] = self.text
+        with open(f'tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
+            decision.write(self.text)
 
     def send_decision(self):
-        self.verdict = random.choice(ERRORS)
-        level3[self.btn_name]['verdict'] = self.verdict
+        self.process.start('python', [f'tests/{level3_tests[self.btn_name]}'])
+        if 'OK' in self.verdict:
+            self.verdict = 'Зачтено'
+        else:
+            self.verdict = 'Доработать' + self.verdict
+
+        level1[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
 
     def keyPressEvent(self, event) -> None:
@@ -302,6 +367,14 @@ class Level3(QWidget, Ui_Form3):
         self.main = FirstPage()
         self.hide()
         self.main.show()
+
+    def stdoutReady(self):
+        out = self.process.readAllStandardOutput()
+        self.verdict = str(out, 'utf-8')
+
+    def stderrReady(self):
+        err = self.process.readAllStandardError()
+        self.verdict = str(err, 'utf-8')
 
 
 def except_hook(cls, exception, traceback):

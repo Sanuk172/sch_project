@@ -7,9 +7,9 @@ module = open('tmp.py', encoding='utf-8').read()
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = '13\n'
+        inp = '5\n1\n2\n3\n4\n5\n'
         mock_stdin(self, inp)
-        result = 'Брррр, холодрыга какая!\n'
+        result = '<\n<\n0\n>\n>\n'
 
         mock_stdouts(self)
         runner(module)
@@ -20,9 +20,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = '42\n'
+        inp = '1\n1'
         mock_stdin(self, inp)
-        result = 'Ура, сегодня мой день ведь, я выйграл дом и 3 коровы.\n'
+        result = '0\n'
 
         mock_stdouts(self)
         runner(module)
@@ -33,9 +33,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_3(self):
-        inp = '52\n'
+        inp = '5\n54\n3\n'
         mock_stdin(self, inp)
-        result = 'Ну булка хлеба, так булка хлеба.\n'
+        result = '>\n<\n'
 
         mock_stdouts(self)
         runner(module)
@@ -44,70 +44,6 @@ class TestCase1(unittest.TestCase):
             self.counter += 1
         else:
             self.assertEqual(answer, result)
-
-
-class TestCase2(unittest.TestCase):
-    def test_1(self):
-        inp = '13\n'
-        mock_stdin(self, inp)
-        result = 'Брррр, холодрыга какая!\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
-
-    def test_2(self):
-        inp = '42\n'
-        mock_stdin(self, inp)
-        result = 'Ура, сегодня мой день ведь, я выйграл дом и 3 коровы.\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
-
-    def test_3(self):
-        inp = '52\n'
-        mock_stdin(self, inp)
-        result = 'Ну булка хлеба, так булка хлеба.\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
-
-
-class TestCase3(unittest.TestCase):
-    def test_1(self):
-        inp = '13\n'
-        mock_stdin(self, inp)
-        result = 'Брррр, холодрыга какая!\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
-
-    def test_2(self):
-        inp = '42\n'
-        mock_stdin(self, inp)
-        result = 'Ура, сегодня мой день ведь, я выйграл дом и 3 коровы.\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
-
-    def test_3(self):
-        inp = '52\n'
-        mock_stdin(self, inp)
-        result = 'Ну булка хлеба, так булка хлеба.\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        self.assertEqual(answer, result)
 
 
 if __name__ == '__main__':
