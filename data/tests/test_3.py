@@ -1,15 +1,15 @@
 import sys
 import unittest
-from utils import mock_stdin, mock_stdouts, runner
+from data.utils import mock_stdin, mock_stdouts, runner
 
-module = open('tmp.py', encoding='utf-8').read()
+module = open('data/tmp_files/Магическая сумма чисел.py', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = '5\n1\n2\n3\n4\n5\n'
+        inp = '4\n5\n'
         mock_stdin(self, inp)
-        result = '<\n<\n0\n>\n>\n'
+        result = '9\n'
 
         mock_stdouts(self)
         runner(module)
@@ -20,9 +20,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = '1\n1'
+        inp = '4\n2\n'
         mock_stdin(self, inp)
-        result = '0\n'
+        result = '6\n'
 
         mock_stdouts(self)
         runner(module)
@@ -33,9 +33,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_3(self):
-        inp = '5\n54\n3\n'
+        inp = '5\n2\n'
         mock_stdin(self, inp)
-        result = '>\n<\n'
+        result = '7\n'
 
         mock_stdouts(self)
         runner(module)

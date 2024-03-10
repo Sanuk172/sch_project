@@ -1,15 +1,15 @@
 import sys
 import unittest
-from utils import mock_stdin, mock_stdouts, runner
+from data.utils import mock_stdin, mock_stdouts, runner
 
-module = open('tmp.py', encoding='utf-8').read()
+module = open('data/tmp_files/Множества', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = '203\n34\n52\nстоп'
+        inp = '3\nМосква\nНью-Йорк\nЛондон\nПариж\n'
         mock_stdin(self, inp)
-        result = 'нечетное\nчетное\nчетное\n'
+        result = 'OK\n'
 
         mock_stdouts(self)
         runner(module)
@@ -20,9 +20,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = '402934\nстоп\n'
+        inp = '3\nМосква\nНью-Йорк\nЛондон\nМосква\n'
         mock_stdin(self, inp)
-        result = 'четное\n'
+        result = 'TRY ANOTHER\n'
 
         mock_stdouts(self)
         runner(module)

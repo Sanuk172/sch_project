@@ -1,15 +1,14 @@
 import os
-import random
 import shutil
 import sys
 
 from PyQt5 import QtCore
 
-from book import Ui_FormB
-from first_page import Ui_MainWindow
-from Lvl1 import Ui_Form1
-from Lvl2 import Ui_Form2
-from Lvl3 import Ui_Form3
+from data.book import Ui_FormB
+from data.first_page import Ui_MainWindow
+from data.Lvl1 import Ui_Form1
+from data.Lvl2 import Ui_Form2
+from data.Lvl3 import Ui_Form3
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAbstractItemView
@@ -116,7 +115,7 @@ class Book(QWidget, Ui_FormB):
     def open_book_lvl1(self):
         self.model = QStandardItemModel(self)
         self.listView.setModel(self.model)
-        with open('books/Book1.txt', 'r', encoding='utf-8') as f:
+        with open('data/books/Book1.txt', 'r', encoding='utf-8') as f:
             data = f.readlines()
         for i in data:
             i = i.rstrip()
@@ -129,7 +128,7 @@ class Book(QWidget, Ui_FormB):
     def open_book_lvl2(self):
         self.model = QStandardItemModel(self)
         self.listView.setModel(self.model)
-        with open('books/Book2.txt', 'r', encoding='utf-8') as f:
+        with open('data/books/Book2.txt', 'r', encoding='utf-8') as f:
             data = f.readlines()
         for i in data:
             i = i.rstrip()
@@ -142,7 +141,7 @@ class Book(QWidget, Ui_FormB):
     def open_book_lvl3(self):
         self.model = QStandardItemModel(self)
         self.listView.setModel(self.model)
-        with open('books/Book3.txt', 'r', encoding='utf-8') as f:
+        with open('data/books/Book3.txt', 'r', encoding='utf-8') as f:
             data = f.readlines()
         for i in data:
             i = i.rstrip()
@@ -168,8 +167,8 @@ class Level1(QWidget, Ui_Form1):
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
-        for filename in os.listdir('tmp_files'):
-            file_path = os.path.join('tmp_files', filename)
+        for filename in os.listdir('data/tmp_files'):
+            file_path = os.path.join('data/tmp_files', filename)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
                     os.unlink(file_path)
@@ -185,7 +184,7 @@ class Level1(QWidget, Ui_Form1):
 
     def uslovie(self, name):
         stroka = ''
-        with open(f"tasks/{name}.txt", 'r', encoding='utf-8') as f:
+        with open(f"data/tasks/{name}.txt", 'r', encoding='utf-8') as f:
             f = f.readlines()
             for i in f:
                 stroka += i
@@ -200,11 +199,11 @@ class Level1(QWidget, Ui_Form1):
     def save_to(self):
         self.text = self.textEdit.toPlainText()
         level1[self.btn_name]['text'] = self.text
-        with open(f'tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
+        with open(f'data/tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level1_tests[self.btn_name]}.py'])
+        self.process.start('python', [f'data/tests/{level1_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
@@ -241,8 +240,8 @@ class Level2(QWidget, Ui_Form2):
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
-        for filename in os.listdir('tmp_files'):
-            file_path = os.path.join('tmp_files', filename)
+        for filename in os.listdir('data/tmp_files'):
+            file_path = os.path.join('data/tmp_files', filename)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
                     os.unlink(file_path)
@@ -258,7 +257,7 @@ class Level2(QWidget, Ui_Form2):
 
     def uslovie(self, name):
         stroka = ''
-        with open(f"tasks/{name}.txt", 'r', encoding='utf-8') as f:
+        with open(f"data/tasks/{name}.txt", 'r', encoding='utf-8') as f:
             f = f.readlines()
             for i in f:
                 stroka += i
@@ -273,11 +272,11 @@ class Level2(QWidget, Ui_Form2):
     def save_to(self):
         self.text = self.textEdit.toPlainText()
         level1[self.btn_name]['text'] = self.text
-        with open(f'tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
+        with open(f'data/tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level2_tests[self.btn_name]}.py'])
+        self.process.start('python', [f'data/tests/{level2_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
@@ -314,8 +313,8 @@ class Level3(QWidget, Ui_Form3):
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
-        for filename in os.listdir('tmp_files'):
-            file_path = os.path.join('tmp_files', filename)
+        for filename in os.listdir('data/tmp_files'):
+            file_path = os.path.join('data/tmp_files', filename)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
                     os.unlink(file_path)
@@ -331,7 +330,7 @@ class Level3(QWidget, Ui_Form3):
 
     def uslovie(self, name):
         stroka = ''
-        with open(f"tasks/{name}.txt", 'r', encoding='utf-8') as f:
+        with open(f"data/tasks/{name}.txt", 'r', encoding='utf-8') as f:
             f = f.readlines()
             for i in f:
                 stroka += i
@@ -346,11 +345,11 @@ class Level3(QWidget, Ui_Form3):
     def save_to(self):
         self.text = self.textEdit.toPlainText()
         level1[self.btn_name]['text'] = self.text
-        with open(f'tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
+        with open(f'data/tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
             decision.write(self.text)
 
     def send_decision(self):
-        self.process.start('python', [f'tests/{level3_tests[self.btn_name]}.py'])
+        self.process.start('python', [f'data/tests/{level3_tests[self.btn_name]}.py'])
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:

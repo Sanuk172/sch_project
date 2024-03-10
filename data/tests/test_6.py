@@ -1,15 +1,15 @@
 import sys
 import unittest
-from utils import mock_stdin, mock_stdouts, runner
+from data.utils import mock_stdin, mock_stdouts, runner
 
-module = open('tmp.py', encoding='utf-8').read()
+module = open('data/tmp_files/Четное нечетное', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = '4\n5\n'
+        inp = '203\n34\n52\nстоп'
         mock_stdin(self, inp)
-        result = '5\n'
+        result = 'нечетное\nчетное\nчетное\n'
 
         mock_stdouts(self)
         runner(module)
@@ -20,22 +20,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = '4\n2\n'
+        inp = '402934\nстоп\n'
         mock_stdin(self, inp)
-        result = '6\n'
-
-        mock_stdouts(self)
-        runner(module)
-        answer = sys.stdout.getvalue()
-        if self.assertEqual(answer, result):
-            self.counter += 1
-        else:
-            self.assertEqual(answer, result)
-
-    def test_3(self):
-        inp = '5\n2\n'
-        mock_stdin(self, inp)
-        result = '7\n'
+        result = 'четное\n'
 
         mock_stdouts(self)
         runner(module)

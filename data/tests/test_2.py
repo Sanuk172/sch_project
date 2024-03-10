@@ -1,15 +1,15 @@
 import sys
 import unittest
-from utils import mock_stdin, mock_stdouts, runner
+from data.utils import mock_stdin, mock_stdouts, runner
 
-module = open('tmp.py', encoding='utf-8').read()
+module = open('data/tmp_files/Волшебный попугай.py', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = 'bujdshfbgМана\n'
+        inp = 'Привет друг\nКак дела\nЧто делаешь\n'
         mock_stdin(self, inp)
-        result = 'абра кадабра\n'
+        result = 'Привет друг Кррр!\nКак дела Кррр!\nЧто делаешь Кррр!'
 
         mock_stdouts(self)
         runner(module)
@@ -20,9 +20,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = 'bujdshfbgмана\n'
+        inp = '\n\n\n'
         mock_stdin(self, inp)
-        result = 'абра кадабра\n'
+        result = ' Кррр!\n Кррр!\n Кррр!\n'
 
         mock_stdouts(self)
         runner(module)
@@ -33,9 +33,9 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_3(self):
-        inp = '52\n'
+        inp = 'fflfa\nfflfa\nfflfa\n'
         mock_stdin(self, inp)
-        result = 'НЕТ\n'
+        result = 'fflfa Кррр!\nfflfa Кррр!\nfflfa Кррр!'
 
         mock_stdouts(self)
         runner(module)

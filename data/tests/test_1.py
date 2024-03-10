@@ -1,8 +1,8 @@
 import sys
 import unittest
-from utils import mock_stdin, mock_stdouts, runner
+from data.utils import mock_stdin, mock_stdouts, runner
 
-module = open('tmp_files/Волшебное число.py', encoding='utf-8').read()
+module = open('data/tmp_files/Волшебное число.py', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
