@@ -1,13 +1,13 @@
 import sys
 import unittest
-from data.utils import mock_stdin, mock_stdouts, runner
+from data.tests.utils import mock_stdin, mock_stdouts, runner
 
 module = open('data/tmp_files/Поиск маны.py', encoding='utf-8').read()
 
 
 class TestCase1(unittest.TestCase):
     def test_1(self):
-        inp = 'bujdshfbgМана\n'
+        inp = 'bujdshfbgМана\nстоп\n'
         mock_stdin(self, inp)
         result = 'абра кадабра\n'
 
@@ -20,7 +20,7 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_2(self):
-        inp = 'bujdshfbgмана\n'
+        inp = 'bujdshfbgмана\nстоп\n'
         mock_stdin(self, inp)
         result = 'абра кадабра\n'
 
@@ -33,7 +33,7 @@ class TestCase1(unittest.TestCase):
             self.assertEqual(answer, result)
 
     def test_3(self):
-        inp = '52\n'
+        inp = '52\nстоп\n'
         mock_stdin(self, inp)
         result = 'НЕТ\n'
 

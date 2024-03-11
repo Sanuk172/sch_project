@@ -52,11 +52,11 @@ level1_tests = {
         "Магическая сумма чисел": 'test_3'
 }
 level2_tests = {
-        "Поиск маны": 'tests/test_5',
+        "Поиск маны": 'test_5',
 
-        "Сильнее среднего": 'tests/test_4',
+        "Сильнее среднего": 'test_4',
 
-        "Четное нечетное": 'tests/test_6'
+        "Четное нечетное": 'test_6'
 }
 level3_tests = {
         "Множества": 'test_7',
@@ -163,7 +163,7 @@ class Level1(QWidget, Ui_Form1):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-
+        self.verdict = ''
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -207,7 +207,7 @@ class Level1(QWidget, Ui_Form1):
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
-            self.verdict = 'Доработать' + self.verdict
+            self.verdict = self.verdict + 'Доработать'
 
         level1[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
@@ -236,7 +236,7 @@ class Level2(QWidget, Ui_Form2):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-
+        self.verdict = ''
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -266,12 +266,12 @@ class Level2(QWidget, Ui_Form2):
     def load_lvl(self, button):
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
-        self.error_label.setText(level1[self.btn_name]['verdict'])
-        self.textEdit.setText(level1[self.btn_name]['text'])
+        self.error_label.setText(level2[self.btn_name]['verdict'])
+        self.textEdit.setText(level2[self.btn_name]['text'])
 
     def save_to(self):
         self.text = self.textEdit.toPlainText()
-        level1[self.btn_name]['text'] = self.text
+        level2[self.btn_name]['text'] = self.text
         with open(f'data/tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
             decision.write(self.text)
 
@@ -282,7 +282,7 @@ class Level2(QWidget, Ui_Form2):
         else:
             self.verdict = 'Доработать' + self.verdict
 
-        level1[self.btn_name]['verdict'] = self.verdict
+        level2[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
 
     def keyPressEvent(self, event) -> None:
@@ -309,7 +309,7 @@ class Level3(QWidget, Ui_Form3):
         self.setupUi(self)
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
-
+        self.verdict = ''
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -339,12 +339,12 @@ class Level3(QWidget, Ui_Form3):
     def load_lvl(self, button):
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
-        self.error_label.setText(level1[self.btn_name]['verdict'])
-        self.textEdit.setText(level1[self.btn_name]['text'])
+        self.error_label.setText(level3[self.btn_name]['verdict'])
+        self.textEdit.setText(level3[self.btn_name]['text'])
 
     def save_to(self):
         self.text = self.textEdit.toPlainText()
-        level1[self.btn_name]['text'] = self.text
+        level3[self.btn_name]['text'] = self.text
         with open(f'data/tmp_files/{self.btn_name}.py', 'w', encoding='utf-8') as decision:
             decision.write(self.text)
 
@@ -355,7 +355,7 @@ class Level3(QWidget, Ui_Form3):
         else:
             self.verdict = 'Доработать' + self.verdict
 
-        level1[self.btn_name]['verdict'] = self.verdict
+        level3[self.btn_name]['verdict'] = self.verdict
         self.error_label.setText(self.verdict)
 
     def keyPressEvent(self, event) -> None:

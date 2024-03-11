@@ -1,6 +1,6 @@
 import sys
 import unittest
-from data.utils import mock_stdin, mock_stdouts, runner
+from data.tests.utils import mock_stdin, mock_stdouts, runner
 
 module = open('data/tmp_files/Магическая сумма чисел.py', encoding='utf-8').read()
 
@@ -9,7 +9,7 @@ class TestCase1(unittest.TestCase):
     def test_1(self):
         inp = '4\n5\n'
         mock_stdin(self, inp)
-        result = '9\n'
+        result = '9\nСумма стала волшебной\n'
 
         mock_stdouts(self)
         runner(module)
@@ -22,7 +22,7 @@ class TestCase1(unittest.TestCase):
     def test_2(self):
         inp = '4\n2\n'
         mock_stdin(self, inp)
-        result = '6\n'
+        result = '6\nСумма стала волшебной\n'
 
         mock_stdouts(self)
         runner(module)

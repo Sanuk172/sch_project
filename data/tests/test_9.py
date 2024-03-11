@@ -1,6 +1,6 @@
 import sys
 import unittest
-from data.utils import mock_stdin, mock_stdouts, runner
+from data.tests.utils import mock_stdin, mock_stdouts, runner
 
 module = open('data/tmp_files/Списки', encoding='utf-8').read()
 
