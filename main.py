@@ -164,6 +164,8 @@ class Level1(QWidget, Ui_Form1):
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
         self.verdict = ''
+        self.error_label.hide()
+        self.textEdit.hide()
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -191,6 +193,8 @@ class Level1(QWidget, Ui_Form1):
         self.label.setText(stroka.rstrip())
 
     def load_lvl(self, button):
+        self.error_label.show()
+        self.textEdit.show()
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
         self.error_label.setText(level1[self.btn_name]['verdict'])
@@ -237,6 +241,8 @@ class Level2(QWidget, Ui_Form2):
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
         self.verdict = ''
+        self.error_label.hide()
+        self.textEdit.hide()
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -264,6 +270,8 @@ class Level2(QWidget, Ui_Form2):
         self.label.setText(stroka.rstrip())
 
     def load_lvl(self, button):
+        self.error_label.show()
+        self.textEdit.show()
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
         self.error_label.setText(level2[self.btn_name]['verdict'])
@@ -310,6 +318,8 @@ class Level3(QWidget, Ui_Form3):
         self.click_button()
         self.textEdit.textChanged.connect(self.save_to)
         self.verdict = ''
+        self.error_label.hide()
+        self.textEdit.hide()
         self.process = QtCore.QProcess(self)
         self.process.readyReadStandardOutput.connect(self.stdoutReady)
         self.process.readyReadStandardError.connect(self.stderrReady)
@@ -337,6 +347,8 @@ class Level3(QWidget, Ui_Form3):
         self.label.setText(stroka.rstrip())
 
     def load_lvl(self, button):
+        self.error_label.show()
+        self.textEdit.show()
         self.btn_name = button.text()
         self.uslovie(self.btn_name)
         self.error_label.setText(level3[self.btn_name]['verdict'])
