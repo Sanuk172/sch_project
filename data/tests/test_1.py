@@ -22,7 +22,7 @@ class TestCase1(unittest.TestCase):
     def test_2(self):
         inp = '42\n'
         mock_stdin(self, inp)
-        result = 'Ура, сегодня мой день ведь я выиграл дом и 3 коровы.\n'
+        result = 'Ура, сегодня мой день ведь, я выиграл дом и 3 коровы.\n'
 
         mock_stdouts(self)
         runner(module)

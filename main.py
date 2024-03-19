@@ -3,12 +3,15 @@ import shutil
 import sys
 
 from PyQt5 import QtCore
+from PyQt5.uic.properties import QtWidgets
+from qtpy import uic
 
 from data.book import Ui_FormB
 from data.first_page import Ui_MainWindow
 from data.Lvl1 import Ui_Form1
 from data.Lvl2 import Ui_Form2
 from data.Lvl3 import Ui_Form3
+from data.error_window import Ui_Form4
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAbstractItemView
@@ -65,6 +68,17 @@ level3_tests = {
 
         "Списки": 'test_9'
 }
+
+
+class Verdict(QWidget, Ui_Form4):
+    def __init__(self, verdict):
+        super().__init__()
+        self.setupUi(self)
+        self.click_button()
+        self.textBrowser.setText(verdict)
+
+    def click_button(self):
+        self.ok.clicked.connect(self.close)
 
 
 class FirstPage(QMainWindow, Ui_MainWindow):
@@ -211,10 +225,10 @@ class Level1(QWidget, Ui_Form1):
         if 'OK' in self.verdict:
             self.verdict = 'Зачтено'
         else:
-            self.verdict = self.verdict + 'Доработать'
+            self.verdict = self.verdict + '\nДоработать'
 
         level1[self.btn_name]['verdict'] = self.verdict
-        self.error_label.setText(self.verdict)
+        self.verdic()
 
     def keyPressEvent(self, event) -> None:
         if event:
@@ -224,6 +238,10 @@ class Level1(QWidget, Ui_Form1):
         self.main = FirstPage()
         self.hide()
         self.main.show()
+
+    def verdic(self):
+        self.verd = Verdict(self.verdict)
+        self.verd.show()
 
     def stdoutReady(self):
         out = self.process.readAllStandardOutput()
@@ -291,7 +309,7 @@ class Level2(QWidget, Ui_Form2):
             self.verdict = 'Доработать' + self.verdict
 
         level2[self.btn_name]['verdict'] = self.verdict
-        self.error_label.setText(self.verdict)
+        self.verdic()
 
     def keyPressEvent(self, event) -> None:
         if event:
@@ -309,6 +327,10 @@ class Level2(QWidget, Ui_Form2):
     def stderrReady(self):
         err = self.process.readAllStandardError()
         self.verdict = str(err, 'utf-8')
+
+    def verdic(self):
+        self.verd = Verdict(self.verdict)
+        self.verd.show()
 
 
 class Level3(QWidget, Ui_Form3):
@@ -368,7 +390,11 @@ class Level3(QWidget, Ui_Form3):
             self.verdict = 'Доработать' + self.verdict
 
         level3[self.btn_name]['verdict'] = self.verdict
-        self.error_label.setText(self.verdict)
+        self.verdic()
+
+    def verdic(self):
+        self.verd = Verdict(self.verdict)
+        self.verd.show()
 
     def keyPressEvent(self, event) -> None:
         if event:
