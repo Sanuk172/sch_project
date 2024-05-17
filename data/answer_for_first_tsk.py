@@ -7,7 +7,6 @@ else:
     print('Ну булка хлеба, так булка хлеба.')
 
 
-
 s = input()
 while s != 'стоп':
     if 'Мана' or "мана" in s:
@@ -19,7 +18,6 @@ while s != 'стоп':
 
 for i in range(3):
     print(input() + ' Кррр!')
-
 
 
 a = int(input())
