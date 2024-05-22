@@ -228,7 +228,6 @@ class Level1(QWidget, Ui_Form1):
             self.verdict = self.verdict + '\nДоработать'
 
         level1[self.btn_name]['verdict'] = self.verdict
-        self.verdic()
 
     def keyPressEvent(self, event) -> None:
         if event:
@@ -246,10 +245,12 @@ class Level1(QWidget, Ui_Form1):
     def stdoutReady(self):
         out = self.process.readAllStandardOutput()
         self.verdict = str(out, 'utf-8')
+        self.verdic()
 
     def stderrReady(self):
         err = self.process.readAllStandardError()
         self.verdict = str(err, 'utf-8')
+        self.verdic()
 
 
 class Level2(QWidget, Ui_Form2):
@@ -309,7 +310,6 @@ class Level2(QWidget, Ui_Form2):
             self.verdict = 'Доработать' + self.verdict
 
         level2[self.btn_name]['verdict'] = self.verdict
-        self.verdic()
 
     def keyPressEvent(self, event) -> None:
         if event:
@@ -323,10 +323,12 @@ class Level2(QWidget, Ui_Form2):
     def stdoutReady(self):
         out = self.process.readAllStandardOutput()
         self.verdict = str(out, 'utf-8')
+        self.verdic()
 
     def stderrReady(self):
         err = self.process.readAllStandardError()
         self.verdict = str(err, 'utf-8')
+        self.verdic()
 
     def verdic(self):
         self.verd = Verdict(self.verdict)
@@ -390,7 +392,6 @@ class Level3(QWidget, Ui_Form3):
             self.verdict = 'Доработать' + self.verdict
 
         level3[self.btn_name]['verdict'] = self.verdict
-        self.verdic()
 
     def verdic(self):
         self.verd = Verdict(self.verdict)
@@ -408,10 +409,12 @@ class Level3(QWidget, Ui_Form3):
     def stdoutReady(self):
         out = self.process.readAllStandardOutput()
         self.verdict = str(out, 'utf-8')
+        self.verdic()
 
     def stderrReady(self):
         err = self.process.readAllStandardError()
         self.verdict = str(err, 'utf-8')
+        self.verdic()
 
 
 def except_hook(cls, exception, traceback):
